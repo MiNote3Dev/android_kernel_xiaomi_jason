@@ -962,7 +962,7 @@ static int __ipa_create_rt_entry(struct ipa3_rt_entry **entry,
 	} else {
 		id = ipa3_alloc_rule_id(&tbl->rule_ids);
 		if (id < 0) {
-			IPAERR("failed to allocate rule id\n");
+			IPAERR_RL("failed to allocate rule id\n");
 			WARN_ON_RATELIMIT_IPA(1);
 			goto alloc_rule_id_fail;
 		}
