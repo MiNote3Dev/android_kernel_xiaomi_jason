@@ -614,12 +614,11 @@ int ipa3_qmi_filter_request_send(struct ipa_install_fltr_rule_req_msg_v01 *req)
 	}
 
 	/* check if the filter rules from IPACM is valid */
-	if (req->filter_spec_list_len == 0) {
+	if (req->filter_spec_list_len == 0)
 		IPAWANDBG("IPACM pass zero rules to Q6\n");
-	} else {
+	else
 		IPAWANDBG("IPACM pass %u rules to Q6\n",
-		req->filter_spec_ex_list_len);
-	}
+			req->filter_spec_list_len);
 
 	if (req->filter_spec_list_len >= QMI_IPA_MAX_FILTERS_V01) {
 		IPAWANDBG(
@@ -937,6 +936,10 @@ int ipa3_qmi_filter_notify_send(
 		return -EINVAL;
 	}
 
+	if (req->source_pipe_index == -1) {
+		IPAWANERR("Source pipe index invalid\n");
+		return -EINVAL;
+	}
 	if (req->install_status != IPA_QMI_RESULT_SUCCESS_V01) {
 		IPAWANERR(" UL filter rule for pipe %d install_status = %d\n",
 			req->source_pipe_index, req->install_status);
@@ -960,11 +963,6 @@ int ipa3_qmi_filter_notify_send(
 	} else if (req->embedded_pipe_index >= ipa3_ctx->ipa_num_pipes) {
 		IPAWANERR("IPACM passes source pipe index not valid ID = %d\n",
 		req->source_pipe_index);
-		return -EINVAL;
-	}
-
-	if (req->source_pipe_index == -1) {
-		IPAWANERR("Source pipe index invalid\n");
 		return -EINVAL;
 	}
 

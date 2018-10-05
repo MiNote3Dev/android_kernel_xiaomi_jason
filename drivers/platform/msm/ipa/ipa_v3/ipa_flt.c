@@ -775,6 +775,7 @@ static int __ipa_validate_flt_rule(const struct ipa_flt_rule *rule,
 			goto error;
 		}
 	}
+
 	return 0;
 
 error:
@@ -1190,7 +1191,7 @@ int ipa3_add_flt_rule_after(struct ipa_ioc_add_flt_rule_after *rules)
 	}
 
 	if (entry->cookie != IPA_FLT_COOKIE) {
-		IPAERR_RL("Invalid cookie value =  %u rule = %d in rt tbls\n",
+		IPAERR_RL("Invalid cookie value =  %u flt hdl id = %d\n",
 			entry->cookie, rules->add_after_hdl);
 		result = -EINVAL;
 		goto bail;
